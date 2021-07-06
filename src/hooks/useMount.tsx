@@ -1,3 +1,6 @@
 import { useEffect } from "react"
 
-export const useMount = (mount: any) => useEffect(mount, []);
+/**
+ * Custom hook to handle component mount
+ */
+export const useMount = (mount: () => void) => useEffect(mount, []);

@@ -7,7 +7,7 @@ interface ProductTable {
     handleTypeSelection: (param: any) => any
 }
 
-const ProductTable: React.FC<ProductTable> = ({filteredProducts, selectedType, handleTypeSelection}) => {
+const ProductData: React.FC<ProductTable> = ({filteredProducts, selectedType, handleTypeSelection}) => {
 
   const typeFilter = () => (
     <label>
@@ -73,4 +73,4 @@ const ProductTable: React.FC<ProductTable> = ({filteredProducts, selectedType, h
 )
 }
 
-export default ProductTable;
+export default ProductData;

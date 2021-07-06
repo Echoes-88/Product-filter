@@ -1,6 +1,4 @@
 import React from "react";
-import logo from './logo-greenVillage.jpg';
-
 interface Input {
     inputValue: string
     setInputValue: (param: string) => any

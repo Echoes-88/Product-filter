@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from "./components/Header"
 import Input from "./components/Input"
-import ProductTable from "./components/ProductTable"
+import ProductData from "./components/ProductData"
 
 import data from "./data/data.json"
 import './App.css';
@@ -16,6 +16,9 @@ const App: React.FC = () => {
   const [products, setProducts] = useState<any[] | null>(null)
   const [filteredProducts, setFilteredProducts] = useState<any[] | null>(null)
 
+   /**
+   * Get products data on mount
+   */
     useMount(()=> {
       const regex = /([^_:]+):([^_]+)/g;
       const parsedData: any[] = []
@@ -33,7 +36,7 @@ const App: React.FC = () => {
           obj[m[1]] = m[2]
         }
 
-      parsedData.push(obj)
+      return parsedData.push(obj)
       })
  
       setProducts(parsedData)
@@ -41,16 +44,21 @@ const App: React.FC = () => {
 
     })
 
-
+   /**
+   * Filter products by type
+   */
   useEffect(()=> {
 
-    const filtered = products?.filter(product => selectedType != "None" ? product.T.includes(selectedType) : product)
+    const filtered = products?.filter(product => selectedType !== "None" ? product.T.includes(selectedType) : product)
 
     setFilteredProducts(filtered || null)
 
   }, [selectedType, products])
 
-
+  
+   /**
+   * Filter products by code, commodity, variety
+   */
   useEffect(()=> {
 
     const filtered = products?.filter(({PLU, CM, VA}) => 
@@ -61,12 +69,9 @@ const App: React.FC = () => {
 
     setFilteredProducts(filtered || null)
 
-  }, [inputValue])
+  }, [inputValue, products])
 
 
-  const handleTypeSelection = (e: any) => {
-    setSelectedType(e.target.value);
-  }
 
   return (
     <div className="main-container">
@@ -76,7 +81,7 @@ const App: React.FC = () => {
     <Input inputValue={inputValue} setInputValue={setInputValue}/>
 
     {products && (
-     <ProductTable filteredProducts={filteredProducts} selectedType={selectedType} handleTypeSelection={handleTypeSelection}/>
+     <ProductData filteredProducts={filteredProducts} selectedType={selectedType} handleTypeSelection={(e) => setSelectedType(e.target.value)}/>
     )}
 
     </div>
